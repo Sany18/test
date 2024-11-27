@@ -1,0 +1,41 @@
+<div class="Books__grid">
+  @for (book of (booksState.$books | async); track book.id) {
+    <div class="Book__item">
+      <div class="Book__cover-wrapper">
+        <mat-spinner></mat-spinner>
+
+        <img
+          class="Books__cover"
+          alt="{{ book.title }}"
+          loading="lazy"
+          [src]="book.cover" />
+
+        <div class="Book__actions">
+          <button
+            mat-flat-button
+            (click)="onDetails(book)">
+            Details
+          </button>
+
+          <div class="flex gap-2">
+            <button mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+
+            <button mat-icon-button>
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div
+        [matTooltip]="book.title"
+        class="text-lg bold truncate overflow-hidden">
+        {{ book.title }}
+      </div>
+      <div class="text-slate-500">{{ book.author }}</div>
+      <div class="font-bold">{{ book.year }}</div>
+    </div>
+  }
+</div>
