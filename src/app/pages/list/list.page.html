@@ -2,12 +2,15 @@
   @for (book of (booksState.$books | async); track book.id) {
     <div class="Book__item">
       <div class="Book__cover-wrapper">
-        <mat-spinner></mat-spinner>
+        @if (!book.isCoverLoaded) {
+          <mat-spinner></mat-spinner>
+        }
 
         <img
           class="Books__cover"
           alt="{{ book.title }}"
           loading="lazy"
+          (load)="onImageLoad(book)"
           [src]="book.cover" />
 
         <div class="Book__actions">
@@ -42,4 +45,13 @@
       <div class="font-bold">{{ book.year }}</div>
     </div>
   }
+
+  <div class="Book__item add">
+    <button
+      mat-fab
+      color="primary"
+      (click)="onAdd()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
 </div>

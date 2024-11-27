@@ -52,4 +52,13 @@ export class BookStorageState {
 
     return this.$books;
   }
+
+  add(book: Book): Observable<Book[]> {
+    this.#books.next({
+      ...this.booksList,
+      [book.id]: book
+    });
+
+    return this.$books;
+  }
 }

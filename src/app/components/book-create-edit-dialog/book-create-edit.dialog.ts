@@ -20,11 +20,11 @@ export class BookCreateEditDialog {
   dialogRef = inject(MatDialogRef);
 
   form = new FormGroup({
-    title: new FormControl(this.data.title, Validators.required),
-    author: new FormControl(this.data.author, Validators.required),
-    year: new FormControl(new Date(this.data.year, 0, 1), Validators.required),
-    cover: new FormControl(this.data.cover, Validators.required),
-    about: new FormControl(this.data.about, Validators.required),
+    title: new FormControl(this.data?.title, Validators.required),
+    author: new FormControl(this.data?.author, Validators.required),
+    year: new FormControl(new Date(this.data?.year, 0, 1), Validators.required),
+    cover: new FormControl(this.data?.cover, Validators.required),
+    about: new FormControl(this.data?.about, Validators.required),
   });
 
   onClose() {

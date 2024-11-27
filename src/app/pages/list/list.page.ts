@@ -24,6 +24,11 @@ export default class HomePage {
     });
   }
 
+  onImageLoad(book: Book) {
+    book.isCoverLoaded = true;
+    this.booksState.updateById(book.id, book);
+  }
+
   onDelete(book: Book) {
     if (confirm('Are you sure you want to delete this book?')) {
       this.booksState.deleteById(book.id);
@@ -37,6 +42,14 @@ export default class HomePage {
 
     dialogRef.afterClosed().subscribe(updatedBook => {
       this.booksState.updateById(book.id, updatedBook);
+    });
+  }
+
+  onAdd() {
+    const dialogRef = this.dialog.open(BookCreateEditDialog);
+
+    dialogRef.afterClosed().subscribe(newBook => {
+      this.booksState.add(newBook);
     });
   }
 }
