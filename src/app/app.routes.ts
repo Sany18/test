@@ -9,10 +9,6 @@ export const routes: Routes = [
         title: 'Test Books List',
         loadComponent: () => import('./pages/list/list.page'),
       },
-      {
-        path: 'other',
-        loadComponent: () => import('./pages/other/other.page'),
-      },
     ]
   }
 ]

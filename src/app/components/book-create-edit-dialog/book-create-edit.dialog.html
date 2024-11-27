@@ -1,0 +1,134 @@
+<mat-card
+  class="p-4"
+  appearance="outlined"
+  [formGroup]="form">
+  <div class="flex justify-between mb-2 items-center flex-1">
+    <h2 class="text-2xl font-bold mb-0">
+      @if (data) { Edit } @else { Create }
+      Book
+    </h2>
+
+    <button
+      (click)="onClose()"
+      mat-icon-button>
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <div class='row'>
+    <!-- Title -->
+    <mat-form-field class="" appearance="fill">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        required
+        placeholder="Title of the book"
+        formControlName="title">
+        <mat-error>
+          @if (form.get('title')?.invalid) {
+            Please enter the title
+          }
+        </mat-error>
+    </mat-form-field>
+
+    <!-- Author -->
+    <mat-form-field class="" appearance="fill">
+      <mat-label>Author</mat-label>
+      <input
+        matInput
+        required
+        placeholder="Author of the book"
+        formControlName="author">
+        <mat-error>
+          @if (form.get('author')?.invalid) {
+            Please enter the author
+          }
+        </mat-error>
+    </mat-form-field>
+  </div>
+
+  <!-- Image preview -->
+   @if (form.get('cover')?.value) {
+     <div class="flex justify-center items-center mb-4">
+       <img
+         [src]="form.get('cover')?.value"
+         class="w-32 h-46 object-cover rounded-lg"
+         alt="Cover image">
+     </div>
+   }
+
+  <!-- Cover (image picker) -->
+  <button
+    class="mb-4 "
+    mat-stroked-button
+    (click)="fileInput.click()">
+    <input
+      #fileInput
+      type="file"
+      style="display: none;"
+      accept=".jpg,.jpeg,.png"
+      (change)="selectImage($event)">
+    <mat-icon>publish</mat-icon>
+    'Upload cover image'
+  </button>
+
+  <div class="row">
+    <!-- Year (date picker) -->
+    <div>
+      <mat-form-field class="max-w-40" appearance="fill">
+        <mat-label>Year</mat-label>
+        <input
+          matInput
+          readonly
+          placeholder="Year of the book"
+          formControlName="year"
+          (focus)="picker.open()"
+          [matDatepicker]="picker">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker
+          #picker
+          startView="multi-year"
+          (yearSelected)="chosenYearHandler($event, picker)">
+        </mat-datepicker>
+        <mat-error>
+          @if (form.get('year')?.invalid) {
+            Please enter the year
+          }
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- About -->
+    <mat-form-field class="flex-1" appearance="fill">
+      <mat-label>About</mat-label>
+      <textarea
+        matInput
+        required
+        placeholder="About the book"
+        formControlName="about">
+      </textarea>
+      <mat-error>
+        @if (form.get('about')?.invalid) {
+          Please enter the about
+        }
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="row justify-end">
+    <!-- Cancel -->
+    <button
+      mat-stroked-button
+      (click)="onClose()">
+      Cancel
+    </button>
+
+    <!-- Submit -->
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onSave()">
+      Save
+    </button>
+  </div>
+</mat-card>

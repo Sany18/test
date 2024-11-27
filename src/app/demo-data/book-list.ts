@@ -3,16 +3,11 @@ import { BookList } from "../models&types/BookList.type"
 
 const randomcolor = () => Math.floor(Math.random() * 16777215).toString(16);
 
-const coverGenerator = (title: string) => `https://placehold.co/400x600/${randomcolor()}/${randomcolor()}?text=${title}`;
+const coverGenerator = (title?: string) => `https://placehold.co/400x600/${randomcolor()}/${randomcolor()}?text=${title}`;
 
-const about = `
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-  dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-  non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-`;
+const about = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
 
-const rawBookList = [
+const rawBookList: Partial<Book>[] = [
   { title: 'The Silent Dawn', author: 'John Smith', year: 2005, id: '1', cover: '' },
   { title: 'Echoes of Tomorrow', author: 'Jane Doe', year: 2010, id: '2', cover: '' },
   { title: 'Whispers in the Wind', author: 'Emily Johnson', year: 2018, id: '3', cover: '' },
@@ -40,8 +35,10 @@ export const bookList: BookList = rawBookList.reduce((acc, book) => {
   book.cover = cover;
   book.about = about;
 
+  const TBook = new Book(book);
+
   return {
     ...acc,
-    [book.id]: new Book(book)
-  }}, {}
+    [TBook.id]: TBook
+  }}, {} as BookList
 );

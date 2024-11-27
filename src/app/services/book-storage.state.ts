@@ -43,4 +43,13 @@ export class BookStorageState {
       map(books => books[id])
     );
   }
+
+  updateById(id: string, book: Partial<Book>): Observable<Book[]> {
+    this.#books.next({
+      ...this.booksList,
+      [id]: { ...this.booksList[id], ...book }
+    });
+
+    return this.$books;
+  }
 }

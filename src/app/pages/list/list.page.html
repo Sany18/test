@@ -18,11 +18,15 @@
           </button>
 
           <div class="flex gap-2">
-            <button mat-icon-button>
+            <button
+              mat-icon-button
+              (click)="onEdit(book)">
               <mat-icon>edit</mat-icon>
             </button>
 
-            <button mat-icon-button>
+            <button
+              mat-icon-button
+              (click)="onDelete(book)">
               <mat-icon>delete</mat-icon>
             </button>
           </div>

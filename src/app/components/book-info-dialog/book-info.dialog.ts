@@ -11,8 +11,4 @@ import { MatSharedModule } from "../../modules/mat-shared.module"
 })
 export class BookInfoDetails {
   data = inject(MAT_DIALOG_DATA);
-
-  ngOnInit() {
-    console.log(this.data);
-  }
 }

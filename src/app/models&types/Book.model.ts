@@ -8,7 +8,7 @@ export class Book {
   about: string;
   author: string;
 
-  constructor(data: Book) {
+  constructor(data: Partial<Book>) {
     this.id ||= data.id || v4()
     this.year = data.year || 1970;
     this.title = data.title || '';
