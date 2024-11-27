@@ -9,7 +9,13 @@ import { bookList } from '../demo-data/book-list'
   providedIn: 'root'
 })
 export class BookStorageState {
+  constructor() {
+    console.log('BookStorageState');
+  }
+
   #books = new BehaviorSubject<BookList>(bookList);
+
+  readonly rawList: BookList = { ...bookList };
 
   get booksList(): BookList {
     return this.#books.value;
@@ -26,6 +32,36 @@ export class BookStorageState {
   get $books(): Observable<Book[]> {
     return this.#books
       .pipe(map(books => Object.values(books)))
+  }
+
+  setFilter(filter: string = ''): void {
+    if (!isNaN(+filter)) {
+      console.log('filter', filter);
+      this.#books.next(
+        Object.keys(this.rawList)
+          .filter(key => (this.rawList[key].year + '').includes(filter))
+          .reduce((acc, key) => ({ ...acc, [key]: this.rawList[key] }), {})
+      );
+
+      return;
+    }
+
+    if (typeof filter === 'string') {
+      console.log('filter2', filter);
+      this.#books.next(
+        Object.keys(this.rawList)
+          .filter(key => this.rawList[key].title.toLowerCase().includes(filter.toLowerCase()))
+          .reduce((acc, key) => ({ ...acc, [key]: this.rawList[key] }), {})
+      );
+
+      return;
+    }
+
+    this.#books.next(this.rawList);
+  }
+
+  setList(list: BookList): void {
+    this.#books.next(list);
   }
 
   deleteById(id: string): Observable<Book[]> {

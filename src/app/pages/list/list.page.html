@@ -1,5 +1,5 @@
 <div class="Books__grid">
-  @for (book of (booksState.$books | async); track book.id) {
+  @for (book of booksState.books; track book.id) {
     <div class="Book__item">
       <div class="Book__cover-wrapper">
         @if (!book.isCoverLoaded) {

@@ -12,7 +12,6 @@ import { BookCreateEditDialog } from '../../components/book-create-edit-dialog/b
   imports: [MatSharedModule, CommonModule],
   templateUrl: './list.page.html',
   styleUrl: './list.page.scss',
-  providers: [BookStorageState]
 })
 export default class HomePage {
   dialog = inject(MatDialog);

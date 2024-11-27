@@ -8,12 +8,23 @@
   </div>
 
   <div class="Header__right">
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>share</mat-icon>
-    </button>
+    <mat-form-field class="Header__search mb-[-1.1rem]">
+      <input
+        matInput
+        placeholder="Enter title or year"
+        [formControl]="search"/>
+
+      @if (search.value) {
+        <mat-icon matSuffix mat-button>close</mat-icon>
+      } @else {
+        <mat-icon
+          matSuffix
+          mat-button
+          (click)="search.setValue(null)">
+          search
+        </mat-icon>
+      }
+    </mat-form-field>
   </div>
 </mat-toolbar>
 
