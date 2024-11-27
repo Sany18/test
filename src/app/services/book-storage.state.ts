@@ -9,10 +9,6 @@ import { bookList } from '../demo-data/book-list'
   providedIn: 'root'
 })
 export class BookStorageState {
-  constructor() {
-    console.log('BookStorageState');
-  }
-
   #books = new BehaviorSubject<BookList>(bookList);
 
   readonly rawList: BookList = { ...bookList };
@@ -36,7 +32,6 @@ export class BookStorageState {
 
   setFilter(filter: string = ''): void {
     if (!isNaN(+filter)) {
-      console.log('filter', filter);
       this.#books.next(
         Object.keys(this.rawList)
           .filter(key => (this.rawList[key].year + '').includes(filter))
@@ -47,7 +42,6 @@ export class BookStorageState {
     }
 
     if (typeof filter === 'string') {
-      console.log('filter2', filter);
       this.#books.next(
         Object.keys(this.rawList)
           .filter(key => this.rawList[key].title.toLowerCase().includes(filter.toLowerCase()))
